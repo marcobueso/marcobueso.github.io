@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Work - Marco Bueso</title>
-    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="icon" type="image/png" href="icon_toon.png">
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
@@ -12,12 +12,13 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <img src="icon.png" alt="Marco Bueso" class="nav-headshot">
+                <img src="icon.jpg" alt="Marco Bueso" class="nav-headshot">
                 <a href="index.html">Marco Bueso <i class="fas fa-code"></i></a>
             </div>
             <div class="nav-menu">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="work.html" class="nav-link active">My Work</a>
+                <a href="personal.html" class="nav-link">Personal</a>
             </div>
             <div class="hamburger">
                 <span class="bar"></span>
@@ -31,14 +32,34 @@
         <section class="work-hero">
             <div class="container">
                 <h1 class="page-title">My Work</h1>
-                <p class="page-subtitle">A collection of projects that I've led or collaborated on</p>
+                <p class="page-subtitle">A collection of projects and research that I've led or collaborated on  (does not include professional work -- refer to my LinkedIn for that)</p>
             </div>
         </section>
 
         <section class="projects">
             <div class="container">
                 <div class="projects-grid">
-                    <!-- Project 1 -->
+                    <div class="project-card">
+                        <div class="project-content">
+                            <h3 class="project-title">Sidecars on the Central Lane: Impact of Network Proxies on Microservices</h3>
+                            <p class="project-description">
+                                Research paper analyzing how sidecar proxies in service meshes impact microservice performance and resource utilization. 
+                                Presented at HotInfra 2023 (co-located with ISCA 2023, Orlando, FL).
+                            </p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Microservices</span>
+                                <span class="tech-tag">Service Mesh</span>
+                                <span class="tech-tag">Performance Analysis</span>
+                                <span class="tech-tag">Systems Research</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://arxiv.org/abs/2306.15792" class="project-link" target="_blank">View Paper</a>
+                                <a href="https://doi.org/10.48550/arXiv.2306.15792" class="project-link" target="_blank">DOI</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Portfolio Website -->
                     <div class="project-card">
                         <div class="project-content">
                             <h3 class="project-title">Portfolio Website</h3>
@@ -53,23 +74,44 @@
                             </div>
                             <div class="project-links">
                                 <a href="#" class="project-link">View Project</a>
-                                <a href="#" class="project-link">GitHub</a>
+                                <a href="https://github.com/marcobueso/marcobueso.github.io" class="project-link">GitHub</a>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Project 2 -->
+                    <!-- NFC Records Display -->
                     <div class="project-card">
                         <div class="project-content">
-                            <h3 class="project-title">E-Commerce Platform</h3>
+                            <h3 class="project-title">NFC Records Display</h3>
                             <p class="project-description">
-                                Full-stack e-commerce solution with user authentication, payment processing, 
-                                and admin dashboard.
+                                A web application that displays "Now Playing" record information by reading NFC tags. 
+                                Built to run on a Raspberry Pi with projector output for wall display.
                             </p>
                             <div class="project-tech">
                                 <span class="tech-tag">React</span>
-                                <span class="tech-tag">Node.js</span>
-                                <span class="tech-tag">MongoDB</span>
+                                <span class="tech-tag">Python Flask</span>
+                                <span class="tech-tag">NFC</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link">View Project</a>
+                                <a href="https://github.com/marcobueso/marcobueso.github.io" class="project-link">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pull-up Counter -->
+                    <div class="project-card">
+                        <div class="project-content">
+                            <h3 class="project-title">Pull-up Counter</h3>
+                            <p class="project-description">
+                                IoT sensor system that automatically counts pull-ups using an accelerometer/gyroscope module. 
+                                Features real-time display and workout tracking with wireless connectivity.
+                            </p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Arduino/ESP32</span>
+                                <span class="tech-tag">MPU-6050</span>
+                                <span class="tech-tag">OLED Display</span>
+                                <span class="tech-tag">C++</span>
                             </div>
                             <div class="project-links">
                                 <a href="#" class="project-link">View Project</a>
@@ -79,7 +121,7 @@
                     </div>
 
                     <!-- Project 3 -->
-                    <div class="project-card">
+                    <!-- <div class="project-card">
                         <div class="project-content">
                             <h3 class="project-title">Task Management App</h3>
                             <p class="project-description">
@@ -96,10 +138,10 @@
                                 <a href="#" class="project-link">GitHub</a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- Project 4 -->
-                    <div class="project-card">
+                    <!-- <div class="project-card">
                         <div class="project-content">
                             <h3 class="project-title">Data Visualization Dashboard</h3>
                             <p class="project-description">
@@ -116,10 +158,10 @@
                                 <a href="#" class="project-link">GitHub</a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- Project 5 -->
-                    <div class="project-card">
+                    <!-- <div class="project-card">
                         <div class="project-content">
                             <h3 class="project-title">CLI Development Tool</h3>
                             <p class="project-description">
@@ -136,10 +178,10 @@
                                 <a href="#" class="project-link">GitHub</a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- Project 6 -->
-                    <div class="project-card">
+                    <!-- <div class="project-card">
                         <div class="project-content">
                             <h3 class="project-title">Machine Learning Model</h3>
                             <p class="project-description">
@@ -156,13 +198,46 @@
                                 <a href="#" class="project-link">GitHub</a>
                             </div>
                         </div>
+                    </div> -->
+                </div>
+
+                <!-- Skills Section -->
+                <div class="skills-section">
+                    <div class="skills">
+                        <h3>Core Skills</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">SQL</span>
+                            <span class="skill-tag">PHP</span>
+                            <span class="skill-tag">Perl</span>
+                            <span class="skill-tag">Node</span>
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">AWS</span>
+                            <span class="skill-tag">Perforce</span>
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">DevOps</span>
+                        </div>
+                    </div>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <div class="stat-number">3+</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">10+</div>
+                            <div class="stat-label">Projects Completed</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">0</div>
+                            <div class="stat-label">Production Issues</div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="contact-section">
-                    <h2 class="section-title">Let's Connect</h2>
+                    <h2 class="section-title">Contact</h2>
                     <p class="contact-description">
-                        Interested in working together or have a question? I'd love to hear from you.
+                        Let's be friends
                     </p>
                     <div class="contact-info">
                         <a href="mailto:mbueso@utexas.edu" class="contact-item">
