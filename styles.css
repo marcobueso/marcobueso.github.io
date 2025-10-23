@@ -10,13 +10,14 @@
     --accent-color: #f0a202;
     --border-color: #000000;
     --white-text: #ffffff; */
-    --primary-bg: #8bb3b0;  /* Stronger teal-gray, still works with black text */
-    --nav-bg: #111111;        /* Softer black (not pure #000) */
-    --primary-text: #1a1a1a;
-    --secondary-text: #2d2d2d;
-    --accent-color: #4a6fa5;  /* Muted slate blue */
-    --border-color: #222222;  /* Dark gray border instead of black */
-    --white-text: #f5f5f5;    /* Slightly off-white, softer on the eyes */
+    --primary-bg: #181818;    /* Deep charcoal */
+    --nav-bg: #0f0f0f;        /* Slightly darker header/nav */
+    --primary-text: #e8e8e8;  /* Gentle white-gray */
+    --secondary-text: #a0a0a0;/* Muted gray */
+    --accent-color: #bfbfbf;  /* Silver-gray accent */
+    --border-color: #2a2a2a;  /* Soft divider */
+    --white-text: #f5f5f5;    /* For highlights/buttons */
+    --card-bg: #222222;       /* Slightly elevated surfaces */
     
     /* Branded Colors */
     --github-color: #333333;
@@ -222,7 +223,9 @@ body {
 }
 
 .skill-tag {
-    color: var(--border-color);
+    color: var(--primary-text);
+    background-color: var(--card-bg);
+    border: 2px solid var(--accent-color);
     padding: 6px 12px;
     border-radius: 20px;
     font-size: 0.9rem;
@@ -245,7 +248,7 @@ body {
 .stat-number {
     font-size: 1.8rem;
     font-weight: 700;
-    color: var(--border-color);
+    color: var(--accent-colo);
     margin-bottom: 0.3rem;
 }
 
@@ -772,6 +775,23 @@ body {
     font-size: 0.8rem;
 }
 
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Visitor Counter */
+.visitor-counter-container {
+    margin-top: 0.5rem;
+}
+
+.visitor-counter {
+    color: var(--white-text);
+    font-size: 0.8rem;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-menu {
@@ -880,6 +900,10 @@ body {
 
     .progress-container {
         justify-content: center;
+    }
+
+    .footer-content {
+        gap: 0.75rem;
     }
 }
 

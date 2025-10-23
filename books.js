@@ -24,11 +24,22 @@ const currentBooks = [
         title: "The First Man",
         author: "Albert Camus",
         isbn: "9780679732730",
-        status: "Reading",
-        progress: 80,
+        status: "Finished",
+        progress: 100,
         genre: "Literary Fiction",
-        startDate: "2025-02-01",
-        thoughts: "One of my favorite philosophers."
+        startDate: "2025-08-01",
+        finishDate: "2025-09-25",
+        thoughts: "One of my favorite philosophers. Unfinished work which made it more intriguing."
+    },
+        {
+        title: "Siddhartha",
+        author: "Hermann Hesse",
+        isbn: "9780976072645",
+        status: "Reading",
+        progress: 50,
+        genre: "Literary Fiction",
+        startDate: "2025-10-01",
+        thoughts: "Re-reading after many years. Good stuff."
     },
 ];
 
