@@ -1,153 +1,195 @@
-// 52-Week Pull-Up Challenge Tracker
-// Future-proof data structure for weekly goals and completion tracking
+// 52-Week Pull-Up Challenge - Cumulative Progress Chart
+// Update the 'actual' array weekly with your pull-up counts
 
-// Placeholder data structure - replace with actual goals later
-const pullupWeeks = [
-    { week: 1, goal: 60, completed: 0 },
-    { week: 2, goal: 72, completed: 0 },
-    { week: 3, goal: 84, completed: 0 },
-    { week: 4, goal: 96, completed: 0 },
-    { week: 5, goal: 108, completed: 0 },
-    { week: 6, goal: 108, completed: 0 },
-    { week: 7, goal: 120, completed: 0 },
-    { week: 8, goal: 120, completed: 0 },
-    { week: 9, goal: 120, completed: 0 },
-    { week: 10, goal: 120, completed: 0 },
-    { week: 11, goal: 120, completed: 0 },
-    { week: 12, goal: 120, completed: 0 },
-    { week: 13, goal: 132, completed: 0 },
-    { week: 14, goal: 144, completed: 0 },
-    { week: 15, goal: 144, completed: 0 },
-    { week: 16, goal: 156, completed: 0 },
-    { week: 17, goal: 156, completed: 0 },
-    { week: 18, goal: 168, completed: 0 },
-    { week: 19, goal: 168, completed: 0 },
-    { week: 20, goal: 168, completed: 0 },
-    { week: 21, goal: 180, completed: 0 },
-    { week: 22, goal: 180, completed: 0 },
-    { week: 23, goal: 180, completed: 0 },
-    { week: 24, goal: 180, completed: 0 },
-    { week: 25, goal: 192, completed: 0 },
-    { week: 26, goal: 192, completed: 0 },
-    { week: 27, goal: 204, completed: 0 },
-    { week: 28, goal: 204, completed: 0 },
-    { week: 29, goal: 216, completed: 0 },
-    { week: 30, goal: 216, completed: 0 },
-    { week: 31, goal: 216, completed: 0 },
-    { week: 32, goal: 216, completed: 0 },
-    { week: 33, goal: 204, completed: 0 },
-    { week: 34, goal: 204, completed: 0 },
-    { week: 35, goal: 192, completed: 0 },
-    { week: 36, goal: 192, completed: 0 },
-    { week: 37, goal: 200, completed: 0 },
-    { week: 38, goal: 200, completed: 0 },
-    { week: 39, goal: 200, completed: 0 },
-    { week: 40, goal: 200, completed: 0 },
-    { week: 41, goal: 180, completed: 0 },
-    { week: 42, goal: 180, completed: 0 },
-    { week: 43, goal: 160, completed: 0 },
-    { week: 44, goal: 160, completed: 0 },
-    { week: 45, goal: 160, completed: 0 },
-    { week: 46, goal: 140, completed: 0 },
-    { week: 47, goal: 140, completed: 0 },
-    { week: 48, goal: 140, completed: 0 },
-    { week: 49, goal: 120, completed: 0 },
-    { week: 50, goal: 120, completed: 0 },
-    { week: 51, goal: 120, completed: 0 },
-    { week: 52, goal: 120, completed: 0 }
-];
+const WEEKLY_TARGET = 196;
+const TOTAL_WEEKS = 52;
+const MAX_CUMULATIVE = WEEKLY_TARGET * TOTAL_WEEKS; // 10,192
 
-// Initialize empty weeks if no data provided
-function initializeWeeks() {
-    if (pullupWeeks.length === 0) {
-        for (let i = 1; i <= 52; i++) {
-            pullupWeeks.push({
-                week: i,
-                goal: 0, // You can set default goals later
-                completed: 0
-            });
-        }
-    }
+// Weekly pull-up data - UPDATE THIS ARRAY with your actual weekly counts
+const pullupData = {
+    actual: [
+        0, 0, 100, 95, 0, 0, 0, 0, 0, 0,  // Weeks 1-10
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // Weeks 11-20
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // Weeks 21-30
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // Weeks 31-40
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // Weeks 41-50
+        0, 0                           // Weeks 51-52
+    ]
+};
+
+// Generate week labels [1, 2, 3, ..., 52]
+function generateWeekLabels() {
+    return Array.from({ length: TOTAL_WEEKS }, (_, i) => i + 1);
 }
 
-// Calculate cumulative totals
-function calculateCumulative(weekIndex) {
-    let cumulative = 0;
-    for (let i = 0; i <= weekIndex; i++) {
-        cumulative += pullupWeeks[i].completed || 0;
+// Generate expected cumulative data [196, 392, 588, ..., 10192]
+function generateExpectedData() {
+    return Array.from({ length: TOTAL_WEEKS }, (_, i) => (i + 1) * WEEKLY_TARGET);
+}
+
+// Calculate cumulative sums from actual weekly data
+function calculateCumulativeActual(actualData) {
+    const cumulative = [];
+    let runningTotal = 0;
+    
+    for (let i = 0; i < actualData.length; i++) {
+        runningTotal += actualData[i];
+        cumulative.push(runningTotal);
     }
+    
     return cumulative;
 }
 
-// Generate table rows dynamically
-function populatePullupTable() {
-    const tbody = document.getElementById('pullup-tbody');
-    if (!tbody) return;
-
-    // Clear existing rows
-    tbody.innerHTML = '';
-
-    pullupWeeks.forEach((week, index) => {
-        const row = document.createElement('tr');
-        const cumulative = calculateCumulative(index);
-        
-        row.innerHTML = `
-            <td class="week-number">${week.week}</td>
-            <td class="goal-cell">${week.goal}</td>
-            <td class="completed-cell">${week.completed}</td>
-            <td class="cumulative-cell">${cumulative}</td>
-        `;
-
-        // Add class for completed weeks (if completed >= goal and goal > 0)
-        if (week.goal > 0 && week.completed >= week.goal) {
-            row.classList.add('week-completed');
+// Find the last week index with a non-zero entry
+function findLastNonZeroIndex(actualData) {
+    for (let i = actualData.length - 1; i >= 0; i--) {
+        if (actualData[i] > 0) {
+            return i;
         }
+    }
+    return -1; // No non-zero entries
+}
 
-        tbody.appendChild(row);
+// Prepare actual data array with null for hidden weeks
+function prepareActualDataForChart(actualData) {
+    const cumulative = calculateCumulativeActual(actualData);
+    const lastNonZeroIndex = findLastNonZeroIndex(actualData);
+    
+    // If no data yet, return all nulls
+    if (lastNonZeroIndex === -1) {
+        return cumulative.map(() => null);
+    }
+    
+    // Show data up to and including the last non-zero week
+    return cumulative.map((value, index) => {
+        return index <= lastNonZeroIndex ? value : null;
     });
 }
 
-// Update a specific week's data (for future use)
-function updateWeekData(weekNumber, goal, completed) {
-    const weekIndex = weekNumber - 1;
-    if (weekIndex >= 0 && weekIndex < pullupWeeks.length) {
-        pullupWeeks[weekIndex].goal = goal || 0;
-        pullupWeeks[weekIndex].completed = completed || 0;
-        
-        // Re-populate table to update cumulative values
-        populatePullupTable();
-    }
-}
+// Initialize the chart
+function initializePullupChart() {
+    const canvas = document.getElementById('pullups-chart');
+    if (!canvas) return;
 
-// Get current week progress summary (for future dashboard use)
-function getProgressSummary() {
-    const totalGoal = pullupWeeks.reduce((sum, week) => sum + (week.goal || 0), 0);
-    const totalCompleted = pullupWeeks.reduce((sum, week) => sum + (week.completed || 0), 0);
-    const completedWeeks = pullupWeeks.filter(week => 
-        week.goal > 0 && week.completed >= week.goal
-    ).length;
+    const ctx = canvas.getContext('2d');
     
-    return {
-        totalGoal,
-        totalCompleted,
-        completedWeeks,
-        totalWeeks: pullupWeeks.length,
-        percentage: totalGoal > 0 ? Math.round((totalCompleted / totalGoal) * 100) : 0
-    };
+    // Set Chart.js global defaults for theming
+    Chart.defaults.font.family = "'JetBrains Mono', monospace";
+    Chart.defaults.color = '#e8e8e8';
+
+    const weekLabels = generateWeekLabels();
+    const expectedData = generateExpectedData();
+    const actualData = prepareActualDataForChart(pullupData.actual);
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: weekLabels,
+            datasets: [
+                {
+                    label: 'Expected',
+                    data: expectedData,
+                    borderColor: '#4A90E2',
+                    backgroundColor: '#4A90E2',
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    fill: false,
+                    tension: 0
+                },
+                {
+                    label: 'Actual',
+                    data: actualData,
+                    borderColor: '#50C878',
+                    backgroundColor: '#50C878',
+                    borderWidth: 2,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#50C878',
+                    fill: false,
+                    tension: 0
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: false,
+            interaction: {
+                intersect: false,
+                mode: 'index'
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#2a2a2a',
+                        font: {
+                            family: "'JetBrains Mono', monospace"
+                        }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: '#222222',
+                    titleColor: '#f5f5f5',
+                    bodyColor: '#e8e8e8',
+                    borderColor: '#2a2a2a',
+                    borderWidth: 1,
+                    cornerRadius: 0,
+                    titleFont: {
+                        family: "'JetBrains Mono', monospace"
+                    },
+                    bodyFont: {
+                        family: "'JetBrains Mono', monospace"
+                    },
+                    callbacks: {
+                        title: function(context) {
+                            return 'Week ' + context[0].label;
+                        },
+                        label: function(context) {
+                            const datasetLabel = context.dataset.label;
+                            const value = context.parsed.y;
+                            if (value === null) {
+                                return datasetLabel + ': --';
+                            }
+                            return datasetLabel + ': ' + value.toLocaleString();
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: {
+                        color: '#a0a0a0'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Week',
+                        color: '#a0a0a0'
+                    }
+                },
+                y: {
+                    min: 0,
+                    max: MAX_CUMULATIVE,
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: {
+                        color: '#a0a0a0',
+                        callback: function(value) {
+                            return value.toLocaleString();
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Cumulative Pull-ups',
+                        color: '#a0a0a0'
+                    }
+                }
+            }
+        }
+    });
 }
 
-// Initialize the table when the page loads
-document.addEventListener('DOMContentLoaded', function() {
-    initializeWeeks();
-    populatePullupTable();
-});
-
-// Export functions for potential future use
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        pullupWeeks,
-        updateWeekData,
-        getProgressSummary,
-        populatePullupTable
-    };
-}
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', initializePullupChart);
