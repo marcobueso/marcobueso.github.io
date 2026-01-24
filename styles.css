@@ -782,16 +782,6 @@ body {
     gap: 1rem;
 }
 
-/* Visitor Counter */
-.visitor-counter-container {
-    margin-top: 0.5rem;
-}
-
-.visitor-counter {
-    color: var(--white-text);
-    font-size: 0.8rem;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-menu {
