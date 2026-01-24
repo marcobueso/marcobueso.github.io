@@ -1,5 +1,42 @@
-// Books I'm currently reading
-const currentBooks = [
+// Books data - single source of truth
+// Status options: "Reading", "Finished", "Want to Read"
+const allBooks = [
+    // Currently Reading
+     
+    {
+        title: "El Mito de Sísifo",
+        author: "Albert Camus",
+        isbn: "9788420618418",
+        status: "Reading",
+        progress: 40,
+        genre: "Literary Fiction",
+        startDate: "2026-01-11",
+        thoughts: "Camus el GOAT"
+    },
+
+    // Books I've Read (add your finished books here)
+    {
+        title: "Siddhartha",
+        author: "Hermann Hesse",
+        isbn: "9780976072645",
+        status: "Finished",
+        progress: 100,
+        genre: "Literary Fiction",
+        startDate: "2025-10-01",
+        finishDate: "2025-12-06",
+        thoughts: "Think. Wait. Fast."
+    },
+        {
+        title: "Child of God",
+        author: "Cormac McCarthy",
+        isbn: "0679728740",
+        status: "Finished",
+        progress: 100,
+        genre: "Literary Fiction",
+        startDate: "2025-12-07",
+        finishDate: "2026-01-06",
+        thoughts: "Ed Gein vibes."
+    },
     {
         title: "Norwegian Wood",
         author: "Haruki Murakami",
@@ -30,17 +67,8 @@ const currentBooks = [
         startDate: "2025-08-01",
         finishDate: "2025-09-25",
         thoughts: "One of my favorite philosophers. Unfinished work which made it more intriguing."
-    },
-        {
-        title: "Siddhartha",
-        author: "Hermann Hesse",
-        isbn: "9780976072645",
-        status: "Reading",
-        progress: 50,
-        genre: "Literary Fiction",
-        startDate: "2025-10-01",
-        thoughts: "Re-reading after many years. Good stuff."
-    },
+    }
+
 ];
 
 // Cache for book covers
@@ -48,23 +76,39 @@ const bookCoverCache = {};
 
 // Initialize books section
 async function initializeBooks() {
-    const container = document.getElementById('books-container');
-    if (!container) return;
+    const readingContainer = document.getElementById('reading-container');
+    const readContainer = document.getElementById('read-container');
+    
+    if (!readingContainer && !readContainer) return;
 
-    container.innerHTML = '<div class="loading">Loading book covers...</div>';
+    // Show loading state
+    if (readingContainer) readingContainer.innerHTML = '<div class="loading">Loading...</div>';
+    if (readContainer) readContainer.innerHTML = '<div class="loading">Loading...</div>';
     
     try {
         const booksWithCovers = await Promise.all(
-            currentBooks.map(async (book) => {
+            allBooks.map(async (book) => {
                 const cover = await getBookCover(book.isbn);
                 return { ...book, coverUrl: cover };
             })
         );
         
-        renderBooks(booksWithCovers);
+        // Split books by status
+        const readingBooks = booksWithCovers.filter(book => book.status === 'Reading');
+        const finishedBooks = booksWithCovers.filter(book => book.status === 'Finished');
+        
+        // Render to separate containers
+        if (readingContainer) renderBooks(readingBooks, readingContainer, 'reading');
+        if (readContainer) renderBooks(finishedBooks, readContainer, 'finished');
+        
     } catch (error) {
         console.error('Error loading books:', error);
-        renderBooks(currentBooks.map(book => ({ ...book, coverUrl: null })));
+        const booksWithoutCovers = allBooks.map(book => ({ ...book, coverUrl: null }));
+        const readingBooks = booksWithoutCovers.filter(book => book.status === 'Reading');
+        const finishedBooks = booksWithoutCovers.filter(book => book.status === 'Finished');
+        
+        if (readingContainer) renderBooks(readingBooks, readingContainer, 'reading');
+        if (readContainer) renderBooks(finishedBooks, readContainer, 'finished');
     }
 }
 
@@ -94,9 +138,12 @@ async function getBookCover(isbn) {
     return placeholder;
 }
 
-// Render books list
-function renderBooks(books) {
-    const container = document.getElementById('books-container');
+// Render books list to a specific container
+function renderBooks(books, container, type) {
+    if (books.length === 0) {
+        container.innerHTML = `<p class="empty-message">No books ${type === 'reading' ? 'currently being read' : 'finished yet'}.</p>`;
+        return;
+    }
     
     const html = books.map(book => {
         const progressBar = book.status === 'Reading' ? 
@@ -125,9 +172,6 @@ function renderBooks(books) {
                     <p class="book-genre">${book.genre}</p>
                     ${dateInfo}
                     ${progressBar}
-                    <div class="book-meta">
-                        <span class="book-status status-${book.status.toLowerCase().replace(/\s+/g, '-')}">${book.status}</span>
-                    </div>
                     ${book.thoughts ? `<p class="book-thoughts">"${book.thoughts}"</p>` : ''}
                 </div>
             </div>
