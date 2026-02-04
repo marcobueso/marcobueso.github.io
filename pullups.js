@@ -8,7 +8,7 @@ const MAX_CUMULATIVE = WEEKLY_TARGET * TOTAL_WEEKS; // 10,192
 // Weekly pull-up data - UPDATE THIS ARRAY with your actual weekly counts
 const pullupData = {
     actual: [
-        0, 0, 100, 95, 0, 0, 0, 0, 0, 0,  // Weeks 1-10
+        0, 0, 100, 102, 158, 0, 0, 0, 0, 0,  // Weeks 1-10
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // Weeks 11-20
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // Weeks 21-30
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // Weeks 31-40
